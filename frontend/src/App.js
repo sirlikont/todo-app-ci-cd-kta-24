@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-
+const apiUrl = process.env.REACT_APP_API_URL;
 function App() {
   const [todos, setTodos] = useState([]);
   const [title, setTitle] = useState('');
 
   const fetchTodos = async () => {
-    const response = await fetch('/api/todos');
+    const response = await fetch(`${apiUrl}/api/todos`);
     const data = await response.json();
     setTodos(data);
   };
 
   const addTodo = async () => {
     if (!title) return;
-    await fetch('/api/todos', {
+    await fetch(`${apiUrl}/api/todos`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title }),

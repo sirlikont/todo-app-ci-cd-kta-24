@@ -1,16 +1,16 @@
 version: '3'
+
 services:
+  # BACKEND: Node.js server
   backend:
     build: ./backend
     ports:
       - "3000:3000"
-    volumes:
-      - todo-data:/app
+    # Konteiner näeb välja nagu kohalik server pordil 3000
+
+  # FRONTEND: React app serveeritud NGINX-iga
   frontend:
-    image: nginx:alpine
+    build: ./frontend
     ports:
       - "8080:80"
-    volumes:
-      - ./frontend:/usr/share/nginx/html:ro
-volumes:
-  todo-data:
+    # Valmis build serveeritakse port 8080 kaudu
