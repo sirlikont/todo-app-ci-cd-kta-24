@@ -1,5 +1,5 @@
 # To-do App Project
-
+- proov 12.53
 ## Projektist
 
 See projekt sisaldab täisfunktsionaalset To-do rakendust:
