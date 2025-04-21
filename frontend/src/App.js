@@ -1,24 +1,34 @@
 import React, { useEffect, useState } from 'react';
-const apiUrl = process.env.REACT_APP_API_URL;
+
+const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3000/api';
+
 function App() {
   const [todos, setTodos] = useState([]);
   const [title, setTitle] = useState('');
 
   const fetchTodos = async () => {
-    const response = await fetch(`${apiUrl}/api/todos`);
-    const data = await response.json();
-    setTodos(data);
+    try {
+      const response = await fetch(`${apiUrl}/todos`);
+      const data = await response.json();
+      setTodos(data);
+    } catch (error) {
+      console.error('Error fetching todos:', error);
+    }
   };
 
   const addTodo = async () => {
     if (!title) return;
-    await fetch(`${apiUrl}/api/todos`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title }),
-    });
-    setTitle('');
-    fetchTodos();
+    try {
+      await fetch(`${apiUrl}/todos`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title }),
+      });
+      setTitle('');
+      fetchTodos();
+    } catch (error) {
+      console.error('Error adding todo:', error);
+    }
   };
 
   useEffect(() => {
@@ -37,7 +47,9 @@ function App() {
       <button onClick={addTodo}>Add</button>
       <ul>
         {todos.map(todo => (
-          <li key={todo.id}>{todo.title} {todo.done ? '✔️' : ''}</li>
+          <li key={todo.id}>
+            {todo.title} {todo.done ? '✔️' : ''}
+          </li>
         ))}
       </ul>
     </div>
