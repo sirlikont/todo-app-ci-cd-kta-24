@@ -30,3 +30,9 @@ jobs:
         run: |
           docker build -t $IMAGE_FRONTEND:latest ./frontend
           docker push $IMAGE_FRONTEND:latest
+
+      - name: Trigger DigitalOcean Deploy
+        run: |
+          curl -X POST "https://api.digitalocean.com/v2/apps/5ddbc6eb-4d04-4f3c-8711-9c2e13ed4f19/deployments" \
+          -H "Authorization: Bearer ${{ secrets.DIGITALOCEAN_API_TOKEN }}" \
+          -H "Content-Type: application/json"
