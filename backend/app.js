@@ -53,6 +53,8 @@ app.delete('/api/todos/:id', (req, res) => {
 });
 
 // Käivitame serveri määratud pordil
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on http://learnvibes.me:${PORT}`);
 });
+
+
